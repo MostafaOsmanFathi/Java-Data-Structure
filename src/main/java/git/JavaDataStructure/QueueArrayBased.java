@@ -9,19 +9,23 @@ public class QueueArrayBased {
     static int TailIdx = 0;
     static int capacity = 0;
 
+    private static boolean shrink() {
+        int arrayHead = 0;
+        for (int i = HeadIdx; i < size; i++, arrayHead++) {
+            arr[arrayHead] = arr[i];
+        }
+        HeadIdx = 0;
+        TailIdx = arrayHead - 1;
+        size = arrayHead;
+        return true;
+    }
+
     private static boolean reserve(int newCapacity) {
         if (newCapacity < 0) return false;
         else if (newCapacity == 0) {
             newCapacity = 1;
         } else if (newCapacity > 2 && HeadIdx >= (newCapacity / 2) - 1) {
-            int arrayHead = 0;
-            for (int i = HeadIdx; i < size; i++, arrayHead++) {
-                arr[arrayHead] = arr[i];
-            }
-            HeadIdx = 0;
-            TailIdx = arrayHead - 1;
-            size = arrayHead;
-            return true;
+            shrink();
         }
         int[] newArr = new int[newCapacity];
         int copyLimit = Math.min(size, Math.min(newCapacity, capacity));
@@ -41,6 +45,12 @@ public class QueueArrayBased {
         TailIdx = size - 1;
         return true;
     }
+
+    public static int front() {
+        if (HeadIdx == TailIdx) return ERROR_VALUE;
+        return arr[HeadIdx];
+    }
+
 
     public static int dequeue() {
         if (size == HeadIdx) return ERROR_VALUE;
