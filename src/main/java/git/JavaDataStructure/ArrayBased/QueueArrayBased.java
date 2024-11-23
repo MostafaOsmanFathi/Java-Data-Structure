@@ -1,4 +1,4 @@
-package git.JavaDataStructure;
+package git.JavaDataStructure.ArrayBased;
 
 public class QueueArrayBased {
     final static int ERROR_VALUE = -1;

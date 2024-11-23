@@ -1,4 +1,4 @@
-package git.JavaDataStructure;
+package git.JavaDataStructure.ArrayBased;
 
 import java.util.function.Function;
 
