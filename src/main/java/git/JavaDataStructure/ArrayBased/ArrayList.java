@@ -22,6 +22,16 @@ public class ArrayList<T> implements Cloneable, Iterable<T> {
     }
 
     @SuppressWarnings("unchecked")
+    public ArrayList(ArrayList<T> list) {
+        this.capacity = list.capacity;
+        size = list.size;
+        arr = (T[]) new Object[capacity];
+        for (int i = 0; i < list.size; i++) {
+            arr[i] = list.arr[i];
+        }
+    }
+
+    @SuppressWarnings("unchecked")
     private void reserve(int newCapacity) {
         if (newCapacity < capacity || newCapacity <= 0) {
             throw new IllegalArgumentException("newCapacity must be  greater than capacity");
@@ -152,6 +162,20 @@ public class ArrayList<T> implements Cloneable, Iterable<T> {
 
     public int getCapacity() {
         return capacity;
+    }
+
+    public T getLast() {
+        if (size == 0) {
+            throw new IllegalCallerException("Array is Empty");
+        }
+        return arr[size - 1];
+    }
+
+    public T getFirst() {
+        if (size == 0) {
+            throw new IllegalCallerException("Array is Empty");
+        }
+        return arr[0];
     }
 
     @Override
