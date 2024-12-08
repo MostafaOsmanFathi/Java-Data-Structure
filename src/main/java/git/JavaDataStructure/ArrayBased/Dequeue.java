@@ -1,8 +1,11 @@
 package git.JavaDataStructure.ArrayBased;
 
+import git.JavaDataStructure.Interfaces.DequeueInterface;
+import git.JavaDataStructure.Interfaces.RandomAccess;
+
 import java.util.Iterator;
 
-class Dequeue<T> implements Iterable<T>, Cloneable {
+class Dequeue<T> implements Iterable<T>, Cloneable, RandomAccess<T>, DequeueInterface<T> {
     private T[] arr;
     private int capacity;
     private int size;
@@ -60,6 +63,7 @@ class Dequeue<T> implements Iterable<T>, Cloneable {
         size++;
     }
 
+    @Override
     public T removeLast() {
         if (size == 0) {
             throw new IllegalCallerException("circular array is empty");
@@ -80,6 +84,7 @@ class Dequeue<T> implements Iterable<T>, Cloneable {
         size++;
     }
 
+    @Override
     public T removeFirst() {
         if (size == 0) {
             throw new IllegalCallerException("there's not last element to remove");
@@ -118,6 +123,7 @@ class Dequeue<T> implements Iterable<T>, Cloneable {
         return temp;
     }
 
+    @Override
     public T getIdx(int index) {
         if (index < size && index >= 0) {
             return arr[getCircularIndex(head + index)];
@@ -125,6 +131,7 @@ class Dequeue<T> implements Iterable<T>, Cloneable {
         throw new IllegalArgumentException("index out of range");
     }
 
+    @Override
     public T getFirst() {
         if (size == 0) {
             throw new IllegalCallerException("circular array is empty");
@@ -132,6 +139,7 @@ class Dequeue<T> implements Iterable<T>, Cloneable {
         return arr[head];
     }
 
+    @Override
     public T getLast() {
         if (size == 0) {
             throw new IllegalCallerException("circular array is empty");
@@ -139,6 +147,7 @@ class Dequeue<T> implements Iterable<T>, Cloneable {
         return arr[tail - 1];
     }
 
+    @Override
     public void setIdx(int index, T item) {
         if (index < size && index >= 0) {
             arr[getCircularIndex(head + index)] = item;
@@ -147,13 +156,42 @@ class Dequeue<T> implements Iterable<T>, Cloneable {
         throw new IllegalArgumentException("index out of range");
     }
 
+    @Override
+    public int size() {
+        return 0;
+    }
+
+    @Override
+    public boolean isValidIndex(int index) {
+        return index < size && index >= 0;
+    }
+
+    @Override
+    public int indexOf(T value) {
+        int index = 0;
+        for (T idxVal : this) {
+            if (idxVal.equals(value)) {
+                return index;
+            }
+            index++;
+        }
+        return -1;
+    }
+
+    @Override
+    public void clear() {
+        this.head = 0;
+        this.tail = 1;
+        capacity = 2;
+        size = 0;
+        arr = (T[]) new Object[capacity];
+    }
+
+    @Override
     public boolean isEmpty() {
         return size == 0;
     }
 
-    public int getSize() {
-        return size;
-    }
 
     @Override
     public Iterator<T> iterator() {

@@ -1,6 +1,8 @@
 package git.JavaDataStructure.LinkedList;
 
-public class Dequeue<T> implements Cloneable {
+import git.JavaDataStructure.Interfaces.DequeueInterface;
+
+public class Dequeue<T> implements Cloneable, DequeueInterface<T> {
     LinkedList<T> list;
 
     public Dequeue() {

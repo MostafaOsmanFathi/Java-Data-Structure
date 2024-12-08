@@ -1,8 +1,10 @@
 package git.JavaDataStructure.ArrayBased;
 
+import git.JavaDataStructure.Interfaces.RandomAccess;
+
 import java.util.Iterator;
 
-public class ArrayList<T> implements Cloneable, Iterable<T> {
+public class ArrayList<T> implements Cloneable, Iterable<T>, RandomAccess<T> {
     private T[] arr;
     private int capacity;
     private int size;
@@ -127,6 +129,7 @@ public class ArrayList<T> implements Cloneable, Iterable<T> {
         return remove(0);
     }
 
+    @Override
     public T getIdx(int index) {
         if (index >= size || index < 0) {
             throw new IllegalArgumentException("index out of range index between 0 and " + (size - 1));
@@ -134,6 +137,7 @@ public class ArrayList<T> implements Cloneable, Iterable<T> {
         return arr[index];
     }
 
+    @Override
     public void setIdx(int index, T value) {
         if (index >= size || index < 0) {
             throw new IllegalArgumentException("index out of range index between 0 and " + (size - 1));
@@ -152,8 +156,33 @@ public class ArrayList<T> implements Cloneable, Iterable<T> {
         return clone;
     }
 
-    public int getSize() {
+    public int size() {
         return size;
+    }
+
+    @Override
+    public boolean isValidIndex(int index) {
+        return index >= 0 && index < size;
+    }
+
+    @Override
+    public int indexOf(T value) {
+        int index = 0;
+        for (T idx : this) {
+            if (idx.equals(value)) {
+                return index;
+            }
+            index++;
+        }
+        return -1;
+    }
+
+    @SuppressWarnings("unchecked")
+    @Override
+    public void clear() {
+        capacity = 1;
+        size = 0;
+        arr = (T[]) new Object[capacity];
     }
 
     public boolean isEmpty() {
@@ -195,4 +224,5 @@ public class ArrayList<T> implements Cloneable, Iterable<T> {
             }
         };
     }
+
 }

@@ -2,6 +2,9 @@ package git.JavaDataStructure.LinkedList;
 
 import java.util.Iterator;
 
+import git.JavaDataStructure.LinkedList.Node;
+import git.JavaDataStructure.Utils.NodeUtils;
+
 public class LinkedList<T> implements Iterable<T>, Cloneable {
     Node<T> head;
     Node<T> tail;
@@ -37,7 +40,7 @@ public class LinkedList<T> implements Iterable<T>, Cloneable {
             head = newNode;
             tail = newNode;
         } else {
-            Node.linkTwoNodes(newNode, head);
+            NodeUtils.linkTwoNodes(newNode, head);
             head = newNode;
         }
         ++size;
@@ -48,7 +51,7 @@ public class LinkedList<T> implements Iterable<T>, Cloneable {
         if (tail == null) {
             addFirst(data);
         } else {
-            Node.linkTwoNodes(tail, newNode);
+            NodeUtils.linkTwoNodes(tail, newNode);
             tail = newNode;
         }
         ++size;
@@ -90,7 +93,7 @@ public class LinkedList<T> implements Iterable<T>, Cloneable {
 
         Node<T> targetNode = getIdxNode(index);
         T data = targetNode.data;
-        Node.removeNodeBetween2Nodes(targetNode);
+        NodeUtils.removeNodeBetween2Nodes(targetNode);
         --size;
         return data;
     }
@@ -134,7 +137,7 @@ public class LinkedList<T> implements Iterable<T>, Cloneable {
         } else {
             Node<T> newNode = new Node<>(data);
             Node<T> prevInsert = getIdxNode(idx - 1);
-            Node.insertBetween2Nodes(prevInsert, prevInsert.next, newNode);
+            NodeUtils.insertBetween2Nodes(prevInsert, prevInsert.next, newNode);
             ++size;
         }
     }

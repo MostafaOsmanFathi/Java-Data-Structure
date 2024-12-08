@@ -1,6 +1,8 @@
 package git.JavaDataStructure.ArrayBased;
 
-public class Stack<T> implements Cloneable {
+import git.JavaDataStructure.Interfaces.StackInterface;
+
+public class Stack<T> implements Cloneable, StackInterface<T> {
     private ArrayList<T> stack;
 
     public Stack() {
@@ -12,18 +14,22 @@ public class Stack<T> implements Cloneable {
         stack = (ArrayList<T>) stackClone.clone();
     }
 
+    @Override
     public void push(T t) {
         stack.addLast(t);
     }
 
+    @Override
     public T pop() {
         return stack.removeLast();
     }
 
+    @Override
     public T peek() {
         return stack.getLast();
     }
 
+    @Override
     public boolean isEmpty() {
         return stack.isEmpty();
     }
