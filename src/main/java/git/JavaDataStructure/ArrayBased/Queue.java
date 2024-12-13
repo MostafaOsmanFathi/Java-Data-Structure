@@ -40,4 +40,9 @@ public class Queue<T> implements Cloneable, QueueInterface<T> {
         clone.queue = (Dequeue<T>) queue.clone();
         return clone;
     }
+
+    @Override
+    public String toString() {
+        return queue.toString();
+    }
 }

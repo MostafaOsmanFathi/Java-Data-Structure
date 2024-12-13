@@ -41,4 +41,9 @@ public class Stack<T> implements Cloneable, StackInterface<T> {
         stackClone.stack = (ArrayList<T>) this.stack.clone();
         return stackClone;
     }
+
+    @Override
+    public String toString() {
+        return stack.toString();
+    }
 }

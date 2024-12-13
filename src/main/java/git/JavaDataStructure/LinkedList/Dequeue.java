@@ -47,4 +47,9 @@ public class Dequeue<T> implements Cloneable, DequeueInterface<T> {
         clone.list = (LinkedList<T>) list.clone();
         return clone;
     }
+
+    @Override
+    public String toString() {
+        return list.toString();
+    }
 }

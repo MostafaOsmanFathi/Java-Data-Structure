@@ -39,12 +39,12 @@ public class ArrayList<T> implements Cloneable, Iterable<T>, RandomAccess<T> {
             throw new IllegalArgumentException("newCapacity must be  greater than capacity");
         }
 
-        this.capacity = newCapacity;
         T[] newArr = (T[]) new Object[newCapacity];
 
-        for (int i = 0; i < newCapacity; i++) {
+        for (int i = 0; i < capacity; i++) {
             newArr[i] = arr[i];
         }
+        this.capacity = newCapacity;
         arr = newArr;
     }
 
@@ -151,7 +151,7 @@ public class ArrayList<T> implements Cloneable, Iterable<T>, RandomAccess<T> {
         ArrayList<T> clone = (ArrayList<T>) super.clone();
         clone.arr = (T[]) new Object[capacity];
         for (int i = 0; i < size; i++) {
-            clone.addLast(arr[i]);
+            clone.arr[i] = arr[i];
         }
         return clone;
     }
@@ -225,4 +225,17 @@ public class ArrayList<T> implements Cloneable, Iterable<T>, RandomAccess<T> {
         };
     }
 
+    @Override
+    public String toString() {
+        if (this.isEmpty()) {
+            return "[]";
+        }
+        StringBuilder sb = new StringBuilder("[");
+        for (T val : this) {
+            sb.append(val.toString()).append(", ");
+        }
+        sb.delete(sb.length() - 1, sb.length());
+        sb.setCharAt(sb.length() - 1, ']');
+        return sb.toString();
+    }
 }

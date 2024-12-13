@@ -50,6 +50,7 @@ public class LinkedList<T> implements Iterable<T>, Cloneable {
         Node<T> newNode = new Node<T>(data);
         if (tail == null) {
             addFirst(data);
+            return;
         } else {
             NodeUtils.linkTwoNodes(tail, newNode);
             tail = newNode;
@@ -60,6 +61,12 @@ public class LinkedList<T> implements Iterable<T>, Cloneable {
     public T removeFirst() {
         if (head == null) {
             throw new IllegalCallerException("linked list is empty");
+        } else if (head == tail) {
+            T data = head.data;
+            head = null;
+            tail = null;
+            --size;
+            return data;
         }
         T data = head.data;
         if (tail == head)
@@ -73,12 +80,17 @@ public class LinkedList<T> implements Iterable<T>, Cloneable {
     public T removeLast() {
         if (tail == null) {
             throw new IllegalCallerException("linked list is empty");
-        }
-        if (head == tail) {
+        } else if (head == tail) {
+            T data = tail.data;
             head = null;
+            tail = null;
+            --size;
+            return data;
         }
+
         T data = tail.data;
-        tail = tail.next;
+        tail = tail.prev;
+        tail.next = null;
         --size;
         return data;
     }
@@ -96,6 +108,10 @@ public class LinkedList<T> implements Iterable<T>, Cloneable {
         NodeUtils.removeNodeBetween2Nodes(targetNode);
         --size;
         return data;
+    }
+
+    T getIdx(int idx) {
+        return getIdxNode(idx).data;
     }
 
     public T getFirst() {
@@ -132,9 +148,7 @@ public class LinkedList<T> implements Iterable<T>, Cloneable {
             throw new IllegalCallerException("index out of bounds");
         } else if (idx == 0)
             addFirst(data);
-        else if (idx == size - 1) {
-            addLast(data);
-        } else {
+        else {
             Node<T> newNode = new Node<>(data);
             Node<T> prevInsert = getIdxNode(idx - 1);
             NodeUtils.insertBetween2Nodes(prevInsert, prevInsert.next, newNode);
@@ -158,8 +172,9 @@ public class LinkedList<T> implements Iterable<T>, Cloneable {
 
             @Override
             public T next() {
+                T data = cur.data;
                 cur = cur.next;
-                return cur.data;
+                return data;
             }
         };
     }
@@ -212,17 +227,11 @@ public class LinkedList<T> implements Iterable<T>, Cloneable {
         Node<T> middleNode = findMiddle();
         Node<T> nextHalfHead = middleNode.next;
 
+        this.size = (size / 2) + (size % 2);
         nextHalfHead.prev = null;
         middleNode.next = null;
         tail = middleNode;
         return new LinkedList<T>(nextHalfHead);
-    }
-
-    public void swapNodes(Node<T> first, Node<T> second) {
-        Node<T> temp = first;
-        first = second;
-        second = temp;
-
     }
 
     public void clear() {
@@ -233,9 +242,24 @@ public class LinkedList<T> implements Iterable<T>, Cloneable {
     @Override
     public LinkedList<T> clone() throws CloneNotSupportedException {
         LinkedList<T> list = (LinkedList<T>) super.clone();
+        list.head = null;
+        list.tail = null;
+        list.size = 0;
+
         for (T data : this) {
             list.addLast((T) data);
         }
         return list;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder("[");
+        for (T val : this) {
+            sb.append(val.toString()).append(", ");
+        }
+        sb.delete(sb.length() - 1, sb.length());
+        sb.setCharAt(sb.length() - 1, ']');
+        return sb.toString();
     }
 }

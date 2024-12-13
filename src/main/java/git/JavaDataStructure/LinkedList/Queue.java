@@ -32,4 +32,8 @@ public class Queue<T> implements QueueInterface<T> {
         return queue.isEmpty();
     }
 
+    @Override
+    public String toString() {
+        return queue.toString();
+    }
 }

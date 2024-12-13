@@ -36,4 +36,9 @@ public class Stack<T> implements Cloneable, StackInterface<T> {
         stackClone.stack = (LinkedList<T>) stack.clone();
         return stackClone;
     }
+
+    @Override
+    public String toString() {
+        return stack.toString();
+    }
 }

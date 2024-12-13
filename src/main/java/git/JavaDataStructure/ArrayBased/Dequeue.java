@@ -16,7 +16,7 @@ class Dequeue<T> implements Iterable<T>, Cloneable, RandomAccess<T>, DequeueInte
     @SuppressWarnings("unchecked")
     public Dequeue() {
         this.head = 0;
-        this.tail = 1;
+        this.tail = 0;
         capacity = 2;
         size = 0;
         arr = (T[]) new Object[capacity];
@@ -40,13 +40,16 @@ class Dequeue<T> implements Iterable<T>, Cloneable, RandomAccess<T>, DequeueInte
             throw new IllegalArgumentException("newCapacity must be  greater than capacity");
         }
 
-        this.capacity = newCapacity;
         T[] newArr = (T[]) new Object[newCapacity];
 
-        for (int i = head; i <= tail; i++) {
-            newArr[i] = arr[i];
+
+        for (int i = 0; i < size; i++) {
+            newArr[i] = arr[getCircularIndex(head + i)];
         }
+        this.capacity = newCapacity;
         arr = newArr;
+        head = 0;
+        tail = size;
     }
 
     private int getCircularIndex(int index) {
@@ -78,9 +81,12 @@ class Dequeue<T> implements Iterable<T>, Cloneable, RandomAccess<T>, DequeueInte
     public void addFirst(T item) {
         if (size == capacity) {
             reserve(capacity * 2);
+        } else if (head == tail) {
+            addLast(item);
+            return;
         }
+        head = getCircularIndex(head - 1);
         arr[head] = item;
-        head = getCircularIndex(head + 1);
         size++;
     }
 
@@ -113,13 +119,18 @@ class Dequeue<T> implements Iterable<T>, Cloneable, RandomAccess<T>, DequeueInte
     }
 
     public T remove(int index) {
-        if (index > size || index < 0) {
-            throw new IllegalArgumentException("index out of range");
+        if (index >= size || index < 0) {
+            throw new IllegalArgumentException("index out of range index between 0 and " + (size - 1));
+        } else if (index == size - 1) {
+            return removeLast();
         }
         T temp = getIdx(index);
-        for (int i = getCircularIndex(head + index); i < tail - 1; i = getCircularIndex(i + 1)) {
-            arr[i] = arr[i + 1];
+        index = getCircularIndex(index + head);
+
+        for (int i = index; i < size - 1; i++) {
+            arr[getCircularIndex(head + i)] = arr[getCircularIndex(head + i + 1)];
         }
+        --size;
         return temp;
     }
 
@@ -158,7 +169,7 @@ class Dequeue<T> implements Iterable<T>, Cloneable, RandomAccess<T>, DequeueInte
 
     @Override
     public int size() {
-        return 0;
+        return size;
     }
 
     @Override
@@ -181,7 +192,7 @@ class Dequeue<T> implements Iterable<T>, Cloneable, RandomAccess<T>, DequeueInte
     @Override
     public void clear() {
         this.head = 0;
-        this.tail = 1;
+        this.tail = 0;
         capacity = 2;
         size = 0;
         arr = (T[]) new Object[capacity];
@@ -197,16 +208,19 @@ class Dequeue<T> implements Iterable<T>, Cloneable, RandomAccess<T>, DequeueInte
     public Iterator<T> iterator() {
         return new Iterator<T>() {
             private int current = head;
+            private int tmpSize = size;
 
             @Override
             public boolean hasNext() {
-                return current != tail;
+
+                return tmpSize != 0;
             }
 
             @Override
             public T next() {
                 T temp = arr[current];
                 current = getCircularIndex(current + 1);
+                --tmpSize;
                 return temp;
             }
         };
@@ -217,9 +231,22 @@ class Dequeue<T> implements Iterable<T>, Cloneable, RandomAccess<T>, DequeueInte
     public Object clone() throws CloneNotSupportedException {
         Dequeue<T> clone = (Dequeue<T>) super.clone();
         clone.arr = (T[]) new Object[capacity];
-        for (T tmp : this) {
-            clone.addLast(tmp);
+        for (int i = 0; i < size; i++) {
+            clone.arr[i] = arr[i];
         }
         return clone;
+    }
+
+    @Override
+    public String toString() {
+        if (size == 0)
+            return "[]";
+        StringBuilder sb = new StringBuilder("[");
+        for (T val : this) {
+            sb.append(val.toString()).append(", ");
+        }
+        sb.delete(sb.length() - 1, sb.length());
+        sb.setCharAt(sb.length() - 1, ']');
+        return sb.toString();
     }
 }
