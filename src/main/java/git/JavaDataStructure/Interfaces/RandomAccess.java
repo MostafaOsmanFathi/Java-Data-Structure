@@ -14,4 +14,7 @@ public interface RandomAccess<T> {
 
     void clear();
 
+    T getLast();
+
+    T getFirst();
 }

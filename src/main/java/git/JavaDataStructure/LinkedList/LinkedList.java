@@ -2,24 +2,25 @@ package git.JavaDataStructure.LinkedList;
 
 import java.util.Iterator;
 
+import git.JavaDataStructure.Abstract.AbstractList;
 import git.JavaDataStructure.LinkedList.Node;
 import git.JavaDataStructure.Utils.NodeUtils;
 
-public class LinkedList<T> implements Iterable<T>, Cloneable {
+public class LinkedList<T> extends AbstractList<T> implements Iterable<T>, Cloneable {
     Node<T> head;
     Node<T> tail;
-    int size;
 
     public LinkedList() {
+        super(0);
         head = null;
         tail = null;
-        this.size = 0;
     }
 
     private LinkedList(Node<T> head) {
+        super(0);
+
         if (head == null) {
             tail = null;
-            this.size = 0;
             return;
         }
         this.head = head;
@@ -34,6 +35,7 @@ public class LinkedList<T> implements Iterable<T>, Cloneable {
         tail = temp;
     }
 
+    @Override
     public void addFirst(T data) {
         Node<T> newNode = new Node<T>(data);
         if (head == null) {
@@ -46,6 +48,7 @@ public class LinkedList<T> implements Iterable<T>, Cloneable {
         ++size;
     }
 
+    @Override
     public void addLast(T data) {
         Node<T> newNode = new Node<T>(data);
         if (tail == null) {
@@ -58,6 +61,7 @@ public class LinkedList<T> implements Iterable<T>, Cloneable {
         ++size;
     }
 
+    @Override
     public T removeFirst() {
         if (head == null) {
             throw new IllegalCallerException("linked list is empty");
@@ -77,6 +81,7 @@ public class LinkedList<T> implements Iterable<T>, Cloneable {
 
     }
 
+    @Override
     public T removeLast() {
         if (tail == null) {
             throw new IllegalCallerException("linked list is empty");
@@ -95,6 +100,7 @@ public class LinkedList<T> implements Iterable<T>, Cloneable {
         return data;
     }
 
+    @Override
     public T remove(int index) {
         if (head == null) {
             throw new IllegalCallerException("linked list is empty");
@@ -110,32 +116,26 @@ public class LinkedList<T> implements Iterable<T>, Cloneable {
         return data;
     }
 
-    T getIdx(int idx) {
+    @Override
+    public T getIdx(int idx) {
         return getIdxNode(idx).data;
     }
 
-    public T getFirst() {
-        if (head == null) {
-            throw new IllegalCallerException("linked list is empty");
-        }
-        return head.data;
-    }
-
-    public T getLast() {
-        if (tail == null) {
-            throw new IllegalCallerException("linked list is empty");
-        }
-        return tail.data;
-    }
-
-    public boolean isEmpty() {
-        return head == null;
+    @Override
+    public void setIdx(int index, T value) {
+        getIdxNode(index).data = value;
     }
 
     private Node<T> getIdxNode(int idx) {
         if (idx < 0 || idx >= size) {
             throw new IllegalCallerException("index out of bounds");
         }
+        if (idx == 0) {
+            return head;
+        } else if (idx == size - 1) {
+            return tail;
+        }
+
         Node<T> temp = head;
         while (temp.next != null && idx-- != 0) {
             temp = temp.next;
@@ -143,6 +143,8 @@ public class LinkedList<T> implements Iterable<T>, Cloneable {
         return temp;
     }
 
+
+    @Override
     public void insert(int idx, T data) {
         if (idx < 0 || idx >= size) {
             throw new IllegalCallerException("index out of bounds");
@@ -156,9 +158,6 @@ public class LinkedList<T> implements Iterable<T>, Cloneable {
         }
     }
 
-    public int size() {
-        return size;
-    }
 
     @Override
     public Iterator<T> iterator() {
@@ -179,64 +178,14 @@ public class LinkedList<T> implements Iterable<T>, Cloneable {
         };
     }
 
-    public int indexOf(T data) {
-        int idx = -1;
-        for (T node : this) {
-            ++idx;
-            if (node.equals(data)) {
-                return idx;
-            }
-        }
-        return -1;
-    }
 
-    private Node<T> findMiddle() {
-        if (head == null) {
-            throw new IllegalCallerException("linked list is empty");
-        }
-        Node<T> fast = head;
-        Node<T> slow = head;
-        while (fast != null && fast.next != null) {
-            slow = slow.next;
-            fast = fast.next.next;
-        }
-        return slow;
-    }
 
-    public T getMiddleData() {
-        return findMiddle().data;
-    }
 
-    public boolean hasCycle() {
-        if (head == null) {
-            return false;
-        }
-        Node<T> fast = head;
-        Node<T> slow = head;
-        while (fast != null && fast.next != null) {
-            fast = fast.next.next;
-            slow = slow.next;
-            if (fast == slow) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    public LinkedList<T> splitIntoTwo() {
-        Node<T> middleNode = findMiddle();
-        Node<T> nextHalfHead = middleNode.next;
-
-        this.size = (size / 2) + (size % 2);
-        nextHalfHead.prev = null;
-        middleNode.next = null;
-        tail = middleNode;
-        return new LinkedList<T>(nextHalfHead);
-    }
-
+    @Override
     public void clear() {
         head = null;
         tail = null;
+        size = 0;
     }
 
     @Override
@@ -250,16 +199,5 @@ public class LinkedList<T> implements Iterable<T>, Cloneable {
             list.addLast((T) data);
         }
         return list;
-    }
-
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder("[");
-        for (T val : this) {
-            sb.append(val.toString()).append(", ");
-        }
-        sb.delete(sb.length() - 1, sb.length());
-        sb.setCharAt(sb.length() - 1, ']');
-        return sb.toString();
     }
 }

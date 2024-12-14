@@ -1,16 +1,17 @@
 package git.JavaDataStructure.ArrayBased;
 
+import git.JavaDataStructure.Abstract.AbstractList;
 import git.JavaDataStructure.Interfaces.RandomAccess;
 
 import java.util.Iterator;
 
-public class ArrayList<T> implements Cloneable, Iterable<T>, RandomAccess<T> {
+public class ArrayList<T> extends AbstractList<T> implements Cloneable, Iterable<T> {
     private T[] arr;
     private int capacity;
-    private int size;
 
     @SuppressWarnings("unchecked")
     public ArrayList() {
+        super(0);
         capacity = 1;
         size = 0;
         arr = (T[]) new Object[capacity];
@@ -18,13 +19,16 @@ public class ArrayList<T> implements Cloneable, Iterable<T>, RandomAccess<T> {
 
     @SuppressWarnings("unchecked")
     public ArrayList(int capacity) {
+        super(0);
         this.capacity = capacity;
         size = 0;
         arr = (T[]) new Object[capacity];
     }
 
+
     @SuppressWarnings("unchecked")
     public ArrayList(ArrayList<T> list) {
+        super(0);
         this.capacity = list.capacity;
         size = list.size;
         arr = (T[]) new Object[capacity];
@@ -92,6 +96,7 @@ public class ArrayList<T> implements Cloneable, Iterable<T>, RandomAccess<T> {
         size++;
     }
 
+    @Override
     public T remove(int index) {
         if (index >= size || index < 0) {
             throw new IllegalArgumentException("index out of range index between 0 and " + (size - 1));
@@ -107,6 +112,7 @@ public class ArrayList<T> implements Cloneable, Iterable<T>, RandomAccess<T> {
         return temp;
     }
 
+    @Override
     public void addFirst(T value) {
         if (size == capacity) {
             reserve(capacity * 2);
@@ -114,6 +120,7 @@ public class ArrayList<T> implements Cloneable, Iterable<T>, RandomAccess<T> {
         insert(0, value);
     }
 
+    @Override
     public T removeLast() {
         if (size == 0) {
             throw new IllegalCallerException("there's not last element to remove");
@@ -125,6 +132,7 @@ public class ArrayList<T> implements Cloneable, Iterable<T>, RandomAccess<T> {
         return temp;
     }
 
+    @Override
     public T removeFirst() {
         return remove(0);
     }
@@ -156,27 +164,6 @@ public class ArrayList<T> implements Cloneable, Iterable<T>, RandomAccess<T> {
         return clone;
     }
 
-    public int size() {
-        return size;
-    }
-
-    @Override
-    public boolean isValidIndex(int index) {
-        return index >= 0 && index < size;
-    }
-
-    @Override
-    public int indexOf(T value) {
-        int index = 0;
-        for (T idx : this) {
-            if (idx.equals(value)) {
-                return index;
-            }
-            index++;
-        }
-        return -1;
-    }
-
     @SuppressWarnings("unchecked")
     @Override
     public void clear() {
@@ -185,26 +172,8 @@ public class ArrayList<T> implements Cloneable, Iterable<T>, RandomAccess<T> {
         arr = (T[]) new Object[capacity];
     }
 
-    public boolean isEmpty() {
-        return size == 0;
-    }
-
     public int getCapacity() {
         return capacity;
-    }
-
-    public T getLast() {
-        if (size == 0) {
-            throw new IllegalCallerException("Array is Empty");
-        }
-        return arr[size - 1];
-    }
-
-    public T getFirst() {
-        if (size == 0) {
-            throw new IllegalCallerException("Array is Empty");
-        }
-        return arr[0];
     }
 
     @Override
@@ -225,17 +194,4 @@ public class ArrayList<T> implements Cloneable, Iterable<T>, RandomAccess<T> {
         };
     }
 
-    @Override
-    public String toString() {
-        if (this.isEmpty()) {
-            return "[]";
-        }
-        StringBuilder sb = new StringBuilder("[");
-        for (T val : this) {
-            sb.append(val.toString()).append(", ");
-        }
-        sb.delete(sb.length() - 1, sb.length());
-        sb.setCharAt(sb.length() - 1, ']');
-        return sb.toString();
-    }
 }

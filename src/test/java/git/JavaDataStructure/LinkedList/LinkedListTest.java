@@ -105,37 +105,6 @@ public class LinkedListTest extends TestCase {
         assertEquals(1, list.indexOf(2));
     }
 
-    public void testGetMiddleData() {
-        LinkedList<Integer> list = new LinkedList<>();
-        list.addLast(1);
-        list.addLast(2);
-        list.addLast(3);
-        assertEquals(2, (int) list.getMiddleData());
-    }
-
-    public void testHasCycle() {
-        LinkedList<Integer> list = new LinkedList<>();
-        Node<Integer> node1 = new Node<>(1);
-        Node<Integer> node2 = new Node<>(2);
-        Node<Integer> node3 = new Node<>(3);
-        list.head = node1;
-        node1.next = node2;
-        node2.next = node3;
-        node3.next = node1;
-        assertTrue(list.hasCycle());
-    }
-
-    public void testSplitIntoTwo() {
-        LinkedList<Integer> list = new LinkedList<>();
-        list.addLast(1);
-        list.addLast(2);
-        list.addLast(3);
-        LinkedList<Integer> split = list.splitIntoTwo();
-        assertEquals(2, list.size());
-        assertEquals(1, split.size());
-    }
-
-
     public void testClear() {
         LinkedList<Integer> list = new LinkedList<>();
         list.addLast(1);
@@ -158,13 +127,5 @@ public class LinkedListTest extends TestCase {
         list.addLast(2);
         assertEquals("[1, 2]", list.toString());
     }
-    /*public void testTestToString2() {
-        LinkedList<Integer> list = new LinkedList<>();
-        list.addLast(1);
-        list.addLast(2);
-        list.addLast(3);
-        for(Integer i : list) {
-            System.out.println(i);
-        }
-    }*/
+
 }
