@@ -20,8 +20,8 @@ This repository contains implementations of common data structures in Java, orga
 Clone the repository to explore the implementations:
 
 ```bash
-git clone https://github.com/YourUsername/YourRepository.git
-cd YourRepository
+git clone https://github.com/MostafaOsmanFathi/Java-Data-Structure.git
+cd Java-Data-Structure
 ```
 
 
