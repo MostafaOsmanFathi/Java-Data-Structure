@@ -1,23 +1,32 @@
 # Java Data Structures
 
-This repository contains implementations of various data structures in Java. Each data structure is organized into separate files for easy access and learning.
+This repository contains implementations of common data structures in Java, organized into a clear and modular file structure. It is designed for learning and practical use, with reusable interfaces and utility functions.
 
-## Files and Links
+## File Structure
 
-- **[Array Package](https://github.com/MostafaOsmanFathi/Java-Data-Structure/blob/master/src/main/java/git/JavaDataStructure/ArrayBased)**: Implementation of array based Data Structure.
-  - **[ArrayList](https://github.com/MostafaOsmanFathi/Java-Data-Structure/blob/master/src/main/java/git/JavaDataStructure/ArrayBased/ArrayList.java)**: Implementation of arrays.
-  - **[Queue](https://github.com/MostafaOsmanFathi/Java-Data-Structure/blob/master/src/main/java/git/JavaDataStructure/ArrayBased/Queue.java)**: Implementation of queue.
-  - **[Dequeue](https://github.com/MostafaOsmanFathi/Java-Data-Structure/blob/master/src/main/java/git/JavaDataStructure/ArrayBased/Dequeue.java)**: Implementation of dequeue.
-  - **[Stack](https://github.com/MostafaOsmanFathi/Java-Data-Structure/blob/master/src/main/java/git/JavaDataStructure/ArrayBased/Stack.java)**: Implementation of stack.
-  
+- **Main.java**: The entry point for testing and demonstrating the functionality of data structures.
+- **Abstract**: Contains `AbstractList.java` which provides shared functionality for list-based implementations.
+- **ArrayBased**: Includes array-based data structures:
+  - `ArrayList.java`, `Queue.java`, `Dequeue.java`, `Stack.java`.
+- **Interfaces**: Defines shared contracts used across various data structure implementations:
+  - `DequeueInterface.java`, `QueueInterface.java`, `StackInterface.java`, `RandomAccess.java`.
+- **LinkedList**: Implements data structures using linked lists:
+  - `LinkedList.java`, `Node.java`, `Queue.java`, `Stack.java`, `Dequeue.java`.
+- **Utils**: Utility classes for operations on data structures:
+  - `LinkedListUtils.java`, `ListUtils.java`, `NodeUtils.java`.
 
-- **[LinkedList Package](https://github.com/MostafaOsmanFathi/Java-Data-Structure/blob/master/src/main/java/git/JavaDataStructure/linkedlist/LinkedList)**: Implementation of a linked list based data structure.
-  - **[ArrayList](https://github.com/MostafaOsmanFathi/Java-Data-Structure/blob/master/src/main/java/git/JavaDataStructure/ArrayBased/LinkedList.java)**: Implementation of LinkedList.
-  - **[Queue](https://github.com/MostafaOsmanFathi/Java-Data-Structure/blob/master/src/main/java/git/JavaDataStructure/ArrayBased/Queue.java)**: Implementation of queue.
-  - **[Dequeue](https://github.com/MostafaOsmanFathi/Java-Data-Structure/blob/master/src/main/java/git/JavaDataStructure/ArrayBased/Dequeue.java)**: Implementation of dequeue.
-  - **[Stack](https://github.com/MostafaOsmanFathi/Java-Data-Structure/blob/master/src/main/java/git/JavaDataStructure/ArrayBased/Stack.java)**: Implementation of stack.
+## Getting Started
 
+Clone the repository to explore the implementations:
 
 ```bash
-git clone https://github.com/MostafaOsmanFathi/Java-Data-Structure.git
+git clone https://github.com/YourUsername/YourRepository.git
+cd YourRepository
 ```
+
+
+## License
+
+This project is licensed under the [MIT License](LICENSE).
+
+---
