@@ -8,16 +8,29 @@ import java.lang.reflect.Field;
 public class LinkedListUtils {
 
 
+
     public static Node<?> getHeadNode(LinkedList<?> list) {
         try {
-            Class<?> reflectedClass = list.getClass();
-            Field headField = reflectedClass.getDeclaredField("head");
-            headField.setAccessible(true);
-            return (Node<?>) headField.get(list);
+            Class<?> currentClass = list.getClass();
+
+            // Traverse up the hierarchy to find the 'head' field
+            while (currentClass != null) {
+                try {
+                    Field headField = currentClass.getDeclaredField("head");
+                    headField.setAccessible(true);
+                    return (Node<?>) headField.get(list); // Access 'head' field
+                } catch (NoSuchFieldException e) {
+                    // If 'head' is not found in the current class, move up the hierarchy
+                    currentClass = currentClass.getSuperclass();
+                }
+            }
+
+            // If we traverse the entire hierarchy and still can't find 'head'
+            throw new NoSuchFieldException("'head' field not found in the class hierarchy");
         } catch (NoSuchFieldException e) {
-            throw new IllegalCallerException("'head' field not found in LinkedList class - the structure may be incorrect");
+            throw new IllegalCallerException("'head' field not found - the structure may be incorrect");
         } catch (IllegalAccessException e) {
-            throw new IllegalCallerException("Access to the 'head' field in LinkedList class is not allowed");
+            throw new IllegalCallerException("Access to the 'head' field is not allowed");
         }
     }
 

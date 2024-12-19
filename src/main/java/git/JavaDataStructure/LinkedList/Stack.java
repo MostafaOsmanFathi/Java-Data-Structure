@@ -30,10 +30,11 @@ public class Stack<T> implements Cloneable, StackInterface<T> {
         return stack.isEmpty();
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public Object clone() throws CloneNotSupportedException {
         Stack<T> stackClone = (Stack<T>) super.clone();
-        stackClone.stack = (LinkedList<T>) stack.clone();
+        stackClone.stack = stack.clone();
         return stackClone;
     }
 

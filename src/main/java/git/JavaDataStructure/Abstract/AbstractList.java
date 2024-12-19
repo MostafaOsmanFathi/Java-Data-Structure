@@ -8,6 +8,9 @@ public abstract class AbstractList<T> implements RandomAccess<T> {
 
     protected int size;
 
+    protected static <T> void copyArray(T[] source, T[] dest, int n) {
+        System.arraycopy(source, 0, dest, 0, n);
+    }
 
     protected AbstractList(int size) {
         this.size = size;

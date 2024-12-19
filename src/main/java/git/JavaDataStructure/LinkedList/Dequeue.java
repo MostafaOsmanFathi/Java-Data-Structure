@@ -41,6 +41,7 @@ public class Dequeue<T> implements Cloneable, DequeueInterface<T> {
         return list.size();
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public Object clone() throws CloneNotSupportedException {
         Dequeue<T> clone = (Dequeue<T>) super.clone();

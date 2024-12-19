@@ -9,10 +9,6 @@ public class Stack<T> implements Cloneable, StackInterface<T> {
         stack = new ArrayList<>();
     }
 
-    @SuppressWarnings("unchecked")
-    private Stack(ArrayList<T> stackClone) throws CloneNotSupportedException {
-        stack = (ArrayList<T>) stackClone.clone();
-    }
 
     @Override
     public void push(T t) {

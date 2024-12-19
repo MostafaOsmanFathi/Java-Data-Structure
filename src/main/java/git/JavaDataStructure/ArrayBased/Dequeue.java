@@ -1,38 +1,26 @@
 package git.JavaDataStructure.ArrayBased;
 
+import git.JavaDataStructure.Abstract.AbstractList;
 import git.JavaDataStructure.Interfaces.DequeueInterface;
-import git.JavaDataStructure.Interfaces.RandomAccess;
 
 import java.util.Iterator;
 
-class Dequeue<T> implements Iterable<T>, Cloneable, RandomAccess<T>, DequeueInterface<T> {
+class Dequeue<T> extends AbstractList<T> implements Iterable<T>, Cloneable, DequeueInterface<T> {
     private T[] arr;
     private int capacity;
-    private int size;
 
     private int head;
     private int tail;
 
     @SuppressWarnings("unchecked")
     public Dequeue() {
+        super(0);
         this.head = 0;
         this.tail = 0;
         capacity = 2;
-        size = 0;
         arr = (T[]) new Object[capacity];
     }
 
-    @SuppressWarnings("unchecked")
-    public Dequeue(Dequeue<T> list) {
-        this.head = list.head;
-        this.tail = list.tail;
-        this.capacity = list.capacity;
-        size = list.size;
-        arr = (T[]) new Object[capacity];
-        for (int i = 0; i < list.size; i++) {
-            arr[i] = list.arr[i];
-        }
-    }
 
     @SuppressWarnings("unchecked")
     private void reserve(int newCapacity) {
@@ -56,6 +44,7 @@ class Dequeue<T> implements Iterable<T>, Cloneable, RandomAccess<T>, DequeueInte
         return ((index % capacity) + capacity) % capacity;
     }
 
+    @Override
     public void addLast(T item) {
         if (size == capacity) {
             reserve(capacity * 2);
@@ -78,6 +67,7 @@ class Dequeue<T> implements Iterable<T>, Cloneable, RandomAccess<T>, DequeueInte
         return temp;
     }
 
+    @Override
     public void addFirst(T item) {
         if (size == capacity) {
             reserve(capacity * 2);
@@ -102,6 +92,7 @@ class Dequeue<T> implements Iterable<T>, Cloneable, RandomAccess<T>, DequeueInte
         return item;
     }
 
+    @Override
     public void insert(int index, T item) {
         if (index > size || index < 0) {
             throw new IllegalArgumentException("index out of range");
@@ -118,6 +109,7 @@ class Dequeue<T> implements Iterable<T>, Cloneable, RandomAccess<T>, DequeueInte
         setIdx(index, item);
     }
 
+    @Override
     public T remove(int index) {
         if (index >= size || index < 0) {
             throw new IllegalArgumentException("index out of range index between 0 and " + (size - 1));
@@ -142,21 +134,6 @@ class Dequeue<T> implements Iterable<T>, Cloneable, RandomAccess<T>, DequeueInte
         throw new IllegalArgumentException("index out of range");
     }
 
-    @Override
-    public T getFirst() {
-        if (size == 0) {
-            throw new IllegalCallerException("circular array is empty");
-        }
-        return arr[head];
-    }
-
-    @Override
-    public T getLast() {
-        if (size == 0) {
-            throw new IllegalCallerException("circular array is empty");
-        }
-        return arr[tail - 1];
-    }
 
     @Override
     public void setIdx(int index, T item) {
@@ -177,18 +154,8 @@ class Dequeue<T> implements Iterable<T>, Cloneable, RandomAccess<T>, DequeueInte
         return index < size && index >= 0;
     }
 
-    @Override
-    public int indexOf(T value) {
-        int index = 0;
-        for (T idxVal : this) {
-            if (idxVal.equals(value)) {
-                return index;
-            }
-            index++;
-        }
-        return -1;
-    }
 
+    @SuppressWarnings("unchecked")
     @Override
     public void clear() {
         this.head = 0;
@@ -199,14 +166,8 @@ class Dequeue<T> implements Iterable<T>, Cloneable, RandomAccess<T>, DequeueInte
     }
 
     @Override
-    public boolean isEmpty() {
-        return size == 0;
-    }
-
-
-    @Override
     public Iterator<T> iterator() {
-        return new Iterator<T>() {
+        return new Iterator<>() {
             private int current = head;
             private int tmpSize = size;
 
@@ -230,23 +191,12 @@ class Dequeue<T> implements Iterable<T>, Cloneable, RandomAccess<T>, DequeueInte
     @SuppressWarnings("unchecked")
     public Object clone() throws CloneNotSupportedException {
         Dequeue<T> clone = (Dequeue<T>) super.clone();
-        clone.arr = (T[]) new Object[capacity];
-        for (int i = 0; i < size; i++) {
-            clone.arr[i] = arr[i];
-        }
-        return clone;
-    }
+        clone.clear();
 
-    @Override
-    public String toString() {
-        if (size == 0)
-            return "[]";
-        StringBuilder sb = new StringBuilder("[");
-        for (T val : this) {
-            sb.append(val.toString()).append(", ");
+        for (T item : this) {
+            clone.addLast(item);
         }
-        sb.delete(sb.length() - 1, sb.length());
-        sb.setCharAt(sb.length() - 1, ']');
-        return sb.toString();
+
+        return clone;
     }
 }

@@ -74,7 +74,7 @@ public class DequeueTest extends TestCase {
         deque.remove(1);
         assertEquals("[1]", deque.toString());
 
-        deque.remove(0); // Remove element at index 1
+        Integer tmp = deque.remove(0); // Remove element at index 1
         assertEquals("[]", deque.toString());
 
     }

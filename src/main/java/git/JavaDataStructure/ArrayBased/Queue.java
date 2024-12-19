@@ -34,6 +34,7 @@ public class Queue<T> implements Cloneable, QueueInterface<T> {
         return queue.size();
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public Object clone() throws CloneNotSupportedException {
         Queue<T> clone = (Queue<T>) super.clone();

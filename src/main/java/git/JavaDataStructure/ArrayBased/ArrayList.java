@@ -1,7 +1,6 @@
 package git.JavaDataStructure.ArrayBased;
 
 import git.JavaDataStructure.Abstract.AbstractList;
-import git.JavaDataStructure.Interfaces.RandomAccess;
 
 import java.util.Iterator;
 
@@ -26,15 +25,14 @@ public class ArrayList<T> extends AbstractList<T> implements Cloneable, Iterable
     }
 
 
+
     @SuppressWarnings("unchecked")
     public ArrayList(ArrayList<T> list) {
         super(0);
         this.capacity = list.capacity;
         size = list.size;
         arr = (T[]) new Object[capacity];
-        for (int i = 0; i < list.size; i++) {
-            arr[i] = list.arr[i];
-        }
+        copyArray(list.arr, arr, list.size);
     }
 
     @SuppressWarnings("unchecked")
@@ -45,9 +43,8 @@ public class ArrayList<T> extends AbstractList<T> implements Cloneable, Iterable
 
         T[] newArr = (T[]) new Object[newCapacity];
 
-        for (int i = 0; i < capacity; i++) {
-            newArr[i] = arr[i];
-        }
+        copyArray(arr, newArr, capacity);
+
         this.capacity = newCapacity;
         arr = newArr;
     }
@@ -60,9 +57,7 @@ public class ArrayList<T> extends AbstractList<T> implements Cloneable, Iterable
         this.capacity = newCapacity;
         T[] newArr = (T[]) new Object[newCapacity];
 
-        for (int i = 0; i < newCapacity; i++) {
-            newArr[i] = arr[i];
-        }
+        copyArray(arr, newArr, newCapacity);
         arr = newArr;
     }
 
@@ -158,9 +153,7 @@ public class ArrayList<T> extends AbstractList<T> implements Cloneable, Iterable
     public Object clone() throws CloneNotSupportedException {
         ArrayList<T> clone = (ArrayList<T>) super.clone();
         clone.arr = (T[]) new Object[capacity];
-        for (int i = 0; i < size; i++) {
-            clone.arr[i] = arr[i];
-        }
+        copyArray(arr, clone.arr, size);
         return clone;
     }
 
@@ -178,7 +171,7 @@ public class ArrayList<T> extends AbstractList<T> implements Cloneable, Iterable
 
     @Override
     public Iterator<T> iterator() {
-        return new Iterator<T>() {
+        return new Iterator<>() {
             int index = 0;
 
             @Override
