@@ -20,35 +20,69 @@ This repository contains implementations of common data structures in Java, orga
 
 ## Package  Structure
 ``` 
-├───Abstract
-│       AbstractList.java
-│       
-├───ArrayBased
-│       ArrayList.java
-│       Dequeue.java
-│       Queue.java
-│       Stack.java
-│       
-├───Interfaces
-│       DequeueInterface.java
-│       QueueInterface.java
-│       RandomAccess.java
-│       StackInterface.java
-│
-├───LinkedList
-│       Dequeue.java
-│       LinkedList.java
-│       Node.java
-│       Queue.java
-│       Stack.java
-│
-└───Utils
-        LinkedListUtils.java
-        ListUtils.java
-        NodeUtils.java
-
+├───src
+│   ├───main
+│   │   ├───java
+│   │   │   └───git
+│   │   │       └───JavaDataStructure
+│   │   │           │   Main.java
+│   │   │           │   
+│   │   │           ├───Abstract
+│   │   │           │       AbstractLinkedList.java
+│   │   │           │       AbstractList.java
+│   │   │           │       
+│   │   │           ├───ArrayBased
+│   │   │           │       ArrayList.java
+│   │   │           │       Dequeue.java
+│   │   │           │       Queue.java
+│   │   │           │       Stack.java
+│   │   │           │
+│   │   │           ├───Interfaces
+│   │   │           │       DequeueInterface.java
+│   │   │           │       QueueInterface.java
+│   │   │           │       RandomAccess.java
+│   │   │           │       StackInterface.java
+│   │   │           │
+│   │   │           ├───LinkedList
+│   │   │           │       Dequeue.java
+│   │   │           │       LinkedList.java
+│   │   │           │       Node.java
+│   │   │           │       Queue.java
+│   │   │           │       Stack.java
+│   │   │           │
+│   │   │           └───Utils
+│   │   │                   LinkedListUtils.java
+│   │   │                   ListUtils.java
+│   │   │                   NodeUtils.java
 ```
 
+## [Unite Testing](src/test/java/git/JavaDataStructure/)
+
+```
+├───src
+│   ├───main
+│   ├─java
+│   └───test
+│       └───java
+│           └───git
+│               └───JavaDataStructure
+│                   ├───ArrayBased
+│                   │       ArrayListTest.java
+│                   │       DequeueTest.java
+│                   │       QueueTest.java
+│                   │       StackTest.java
+│                   │
+│                   ├───LinkedList
+│                   │       DequeueTest.java
+│                   │       LinkedListTest.java
+│                   │       QueueTest.java
+│                   │       StackTest.java
+│                   │
+│                   └───Utils
+│                           LinkedListUtilsTest.java
+│                           ListUtilsTest.java
+│                           NodeUtilsTest.java
+```
 ## Getting Started
 
 Clone the repository to explore the implementations:
