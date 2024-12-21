@@ -1,7 +1,6 @@
 package git.JavaDataStructure.ArrayBased;
 
 import git.JavaDataStructure.Abstract.AbstractList;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.Iterator;
 import java.util.Objects;
@@ -13,19 +12,17 @@ public class ArrayList<T> extends AbstractList<T> implements Cloneable, Iterable
     @SuppressWarnings("unchecked")
     public ArrayList() {
         super(0);
-        capacity = 1;
-        size = 0;
-        arr = (T[]) new Object[capacity];
+        this.capacity = 1;
+        this.size = 0;
+        this.arr = (T[]) new Object[capacity];
     }
 
     @SuppressWarnings("unchecked")
     public ArrayList(int capacity) {
         super(0);
         this.capacity = capacity;
-        size = 0;
-        arr = (T[]) new Object[capacity];
+        this.arr = (T[]) new Object[capacity];
     }
-
 
 
     @SuppressWarnings("unchecked")
@@ -33,8 +30,8 @@ public class ArrayList<T> extends AbstractList<T> implements Cloneable, Iterable
         super(0);
         Objects.requireNonNull(list);
         this.capacity = list.capacity;
-        size = list.size;
-        arr = (T[]) new Object[capacity];
+        this.size = list.size;
+        this.arr = (T[]) new Object[capacity];
         copyArray(list.arr, arr, list.size);
     }
 
@@ -49,7 +46,7 @@ public class ArrayList<T> extends AbstractList<T> implements Cloneable, Iterable
         copyArray(arr, newArr, capacity);
 
         this.capacity = newCapacity;
-        arr = newArr;
+        this.arr = newArr;
     }
 
     @SuppressWarnings("unchecked")
@@ -61,7 +58,7 @@ public class ArrayList<T> extends AbstractList<T> implements Cloneable, Iterable
         T[] newArr = (T[]) new Object[newCapacity];
 
         copyArray(arr, newArr, newCapacity);
-        arr = newArr;
+        this.arr = newArr;
     }
 
     private void shrinkTest() {

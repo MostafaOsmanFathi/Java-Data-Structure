@@ -9,8 +9,6 @@ public class LinkedList<T> extends AbstractLinkedList<T> implements Iterable<T>,
 
     public LinkedList() {
         super(0);
-        head = null;
-        tail = null;
     }
 
     @Override

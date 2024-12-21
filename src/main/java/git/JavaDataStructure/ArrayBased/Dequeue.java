@@ -17,8 +17,8 @@ class Dequeue<T> extends AbstractList<T> implements Iterable<T>, Cloneable, Dequ
         super(0);
         this.head = 0;
         this.tail = 0;
-        capacity = 2;
-        arr = (T[]) new Object[capacity];
+        this.capacity = 2;
+        this.arr = (T[]) new Object[capacity];
     }
 
 
@@ -35,9 +35,9 @@ class Dequeue<T> extends AbstractList<T> implements Iterable<T>, Cloneable, Dequ
             newArr[i] = arr[getCircularIndex(head + i)];
         }
         this.capacity = newCapacity;
-        arr = newArr;
-        head = 0;
-        tail = size;
+        this.arr = newArr;
+        this.head = 0;
+        this.tail = size;
     }
 
     private int getCircularIndex(int index) {
@@ -160,9 +160,9 @@ class Dequeue<T> extends AbstractList<T> implements Iterable<T>, Cloneable, Dequ
     public void clear() {
         this.head = 0;
         this.tail = 0;
-        capacity = 2;
-        size = 0;
-        arr = (T[]) new Object[capacity];
+        this.capacity = 2;
+        this.size = 0;
+        this.arr = (T[]) new Object[capacity];
     }
 
     @Override

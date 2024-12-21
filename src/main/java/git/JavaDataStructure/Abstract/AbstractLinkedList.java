@@ -11,6 +11,8 @@ public abstract class AbstractLinkedList<T> extends AbstractList<T> {
 
     protected AbstractLinkedList(int size) {
         super(size);
+        this.head = null;
+        this.tail = null;
     }
 
     @Override
@@ -116,6 +118,7 @@ public abstract class AbstractLinkedList<T> extends AbstractList<T> {
         --size;
         return data;
     }
+
     @Override
     public void clear() {
         tail = null;
