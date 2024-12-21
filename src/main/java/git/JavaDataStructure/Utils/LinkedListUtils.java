@@ -4,13 +4,14 @@ import git.JavaDataStructure.LinkedList.LinkedList;
 import git.JavaDataStructure.LinkedList.Node;
 
 import java.lang.reflect.Field;
+import java.util.Objects;
 
 public class LinkedListUtils {
 
 
-
     public static Node<?> getHeadNode(LinkedList<?> list) {
         try {
+            Objects.requireNonNull(list, "list is null");
             Class<?> currentClass = list.getClass();
 
             // Traverse up the hierarchy to find the 'head' field
@@ -35,6 +36,7 @@ public class LinkedListUtils {
     }
 
     public static Node<?> findMiddle(LinkedList<?> list) {
+        Objects.requireNonNull(list, "list is null");
         if (list.isEmpty()) {
             throw new IllegalCallerException("linked list is empty");
         }
@@ -50,10 +52,12 @@ public class LinkedListUtils {
     }
 
     public static Object getMiddleData(LinkedList<?> list) {
+        Objects.requireNonNull(list, "list is null");
         return findMiddle(list).data;
     }
 
     public static boolean hasCycle(LinkedList<?> list) {
+        Objects.requireNonNull(list, "list is null");
         Node<?> head = getHeadNode(list);
         if (head == null) {
             return false;

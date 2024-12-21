@@ -1,8 +1,10 @@
 package git.JavaDataStructure.ArrayBased;
 
 import git.JavaDataStructure.Abstract.AbstractList;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Iterator;
+import java.util.Objects;
 
 public class ArrayList<T> extends AbstractList<T> implements Cloneable, Iterable<T> {
     private T[] arr;
@@ -29,6 +31,7 @@ public class ArrayList<T> extends AbstractList<T> implements Cloneable, Iterable
     @SuppressWarnings("unchecked")
     public ArrayList(ArrayList<T> list) {
         super(0);
+        Objects.requireNonNull(list);
         this.capacity = list.capacity;
         size = list.size;
         arr = (T[]) new Object[capacity];
